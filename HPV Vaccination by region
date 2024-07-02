@@ -1,0 +1,58 @@
+
+
+Problem: Assess the impact of achieving WHO vaccination coverage goals on the prevention of cancer and deaths in various income groups and regions. The goal is to provide actionable insights for public health officials and policymakers.
+
+
+To address this problem, we need to perform the following analyses:
+
+Calculate the total cancer cases and deaths prevented for each income group.
+Identify regions with the highest potential for improvement by achieving WHO coverage goals.
+
+
+SQL Queries
+
+Total cancer cases and deaths prevented for each income group:
+
+SELECT 
+    income_group,
+    SUM(cancer_prevented) AS total_cancer_prevented,
+    SUM(deaths_prevented) AS total_deaths_prevented
+FROM 
+    hpv_2020s_results
+GROUP BY 
+    income_group;
+
+The purpose of this query is to calculate the total number of cancer cases and deaths prevented by vaccination in each income group. It groups the data by income levels (e.g., Low income, Lower middle income, Upper middle income, High income) 
+and sums the cancer cases and deaths prevented for each group. The GROUP BY income_group clause ensures that the results are aggregated by each income group. Understanding the impact of vaccination across different income groups highlights 
+disparities and successes in vaccination efforts. This information helps public health officials and policymakers allocate resources more effectively, identifying which income groups have benefited the most and which may need more attention.
+Regions with the highest potential for improvement by achieving WHO coverage goals:
+
+SELECT 
+    region,
+    SUM(possible_cancer_cases) - SUM(cancer_prevented) AS potential_cancer_cases_prevented,
+    SUM(possible_cancer_deaths) - SUM(deaths_prevented) AS potential_deaths_prevented
+FROM 
+    hpv_2020s_results
+GROUP BY 
+    region
+ORDER BY 
+    potential_cancer_cases_prevented DESC, 
+    potential_deaths_prevented DESC;
+
+This query aims to identify regions with the greatest potential for reducing cancer cases and deaths by achieving WHO vaccination coverage goals. 
+It groups data by regions like South Asia and Sub-Saharan Africa, calculating potential improvements in both prevented cancer cases and deaths. 
+Results are aggregated by region, sorted to prioritize regions with the highest potential improvements. This prioritization helps target interventions and allocate resources efficiently for maximum public health impact.
+
+
+
+The combination of these queries addresses the business problem by:
+
+Providing Insights into Current Impact:
+
+The first query reveals which income groups have benefited the most from existing vaccination efforts, highlighting the overall effectiveness of the program across different economic segments.
+Identifying Areas for Improvement:
+
+The second query highlights regions with the greatest potential for further improvements in cancer and death prevention. This allows policymakers to target their efforts where they can achieve the most 
+significant gains by increasing vaccination coverage.
+By analyzing both the current impact and the potential for future improvements, these queries offer a comprehensive view of the effectiveness and opportunities for enhancing HPV vaccination programs.
+
